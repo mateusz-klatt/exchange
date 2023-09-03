@@ -33,8 +33,7 @@ public class Prices {
                 .map(Map.Entry::getValue)
                 .map(Price::getOrders)
                 .flatMap(List::stream)
-                .filter(side == Sell ? o -> o.getPrice() <= order.getPrice() : o -> o.getPrice() >= order.getPrice())
-                .takeWhile(o -> (o.execute(order).getRemaining() == 0))
+                .takeWhile(o -> ((side == Sell ? o.getPrice() <= order.getPrice() : o.getPrice() >= order.getPrice()) && o.execute(order).getRemaining() == 0))
                 .collect(Collectors.toList());
         orders.forEach(o -> {
             if (prices.get(o.getPrice()).removeOrder(o).getSize() == 0) {
