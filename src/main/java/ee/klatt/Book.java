@@ -19,7 +19,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return Stream.of(this.instrument, this.ask, this.bid)
+        return Stream.of(this.instrument, this.bid, this.ask)
                 .map(Object::toString)
                 .filter(v -> !v.isEmpty())
                 .collect(Collectors.joining("\n"));
