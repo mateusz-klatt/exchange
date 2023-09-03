@@ -27,6 +27,10 @@ public class Price {
         return this;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
     public int getSize() {
         return orders.stream().mapToInt(Order::getRemaining).sum();
     }

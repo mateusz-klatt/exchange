@@ -59,6 +59,15 @@ public class Order {
         return this;
     }
 
+    @Deprecated
+    public Order execute(int quantity) {
+        var executed = Math.min(this.remaining, quantity);
+        this.remaining -= executed;
+        this.executed += executed;
+        return this;
+    }
+
+    @Deprecated
     public Order cancel(int quantity) {
         var canceled = Math.min(this.remaining, quantity);
         this.remaining -= canceled;

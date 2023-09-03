@@ -23,6 +23,14 @@ public class Prices {
                 .collect(Collectors.joining("\n"));
     }
 
+    @Deprecated
+    public List<Price> getPrices() {
+        return prices.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(side == Sell ? Comparator.naturalOrder() : Collections.reverseOrder()))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+    }
+
     public void addOrder(Order order) {
         prices.computeIfAbsent(order.getPrice(), Price::new).addOrder(order);
     }
@@ -42,16 +50,45 @@ public class Prices {
         });
     }
 
+    @Deprecated
+    public boolean executeOrder(int id, int quantity) {
+        var orders = new ArrayList<Order>();
+        var found = prices.values().stream()
+                .map(Price::getOrders)
+                .flatMap(List::stream)
+                .anyMatch(o -> {
+                    if (o.getId() == id) {
+                        orders.add(o);
+                        return true;
+                    }
+                    return false;
+                });
+        orders.forEach(o -> {
+            if (o.execute(quantity).getRemaining() == 0 && prices.get(o.getPrice()).removeOrder(o).getSize() == 0) {
+                prices.remove(o.getPrice());
+            }
+        });
+        return found;
+    }
 
+    @Deprecated
     public boolean cancelOrder(int id, int quantity) {
-        return prices.values().stream().anyMatch(price -> {
-            var found = price.getOrders().stream().filter(order -> order.getId() == id).findFirst();
-            if (found.isEmpty()) return false;
-            var o = found.get();
+        var orders = new ArrayList<Order>();
+        var found = prices.values().stream()
+                .map(Price::getOrders)
+                .flatMap(List::stream)
+                .anyMatch(o -> {
+                    if (o.getId() == id) {
+                        orders.add(o);
+                        return true;
+                    }
+                    return false;
+                });
+        orders.forEach(o -> {
             if (o.cancel(quantity).getRemaining() == 0 && prices.get(o.getPrice()).removeOrder(o).getSize() == 0) {
                 prices.remove(o.getPrice());
             }
-            return true;
         });
+        return found;
     }
 }

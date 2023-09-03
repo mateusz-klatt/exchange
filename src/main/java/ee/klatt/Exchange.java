@@ -16,7 +16,18 @@ public class Exchange {
         return books.toString();
     }
 
+    @Deprecated
+    public Book getBook(String instrument) {
+        return books.getInstrument(instrument);
+    }
+
+    @Deprecated
     public void cancelOrder(int id, int quantity) {
         books.getInstruments().stream().anyMatch(book -> book.cancelOrder(id, quantity));
+    }
+
+    @Deprecated
+    public void executeOrder(int id, int quantity) {
+        books.getInstruments().stream().anyMatch(book -> book.executeOrder(id, quantity));
     }
 }

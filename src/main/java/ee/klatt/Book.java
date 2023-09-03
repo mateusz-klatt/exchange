@@ -49,7 +49,22 @@ public class Book {
         }
     }
 
+    @Deprecated
     public boolean cancelOrder(int id, int quantity) {
         return Stream.of(this.bid, this.ask).anyMatch(prices -> prices.cancelOrder(id, quantity));
+    }
+
+    @Deprecated
+    public boolean executeOrder(int id, int quantity) {
+        return Stream.of(this.bid, this.ask).anyMatch(prices -> prices.executeOrder(id, quantity));
+    }
+
+    @Deprecated
+    public Prices getSide(Side side) {
+        if (side == Buy) {
+            return this.bid;
+        } else {
+            return this.ask;
+        }
     }
 }

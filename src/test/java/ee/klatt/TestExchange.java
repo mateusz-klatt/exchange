@@ -26,7 +26,7 @@ public class TestExchange {
 
         exchange.newOrder(6, "ISF LN", 735.9000, 300, Buy);
         exchange.cancelOrder(3, 200);
-        exchange.cancelOrder(4, 199);
+        exchange.executeOrder(4, 199);
         assertEquals("DAXEX GY\n" +
                 "132.82 400 1,5\n" +
                 "ISF LN\n" +
