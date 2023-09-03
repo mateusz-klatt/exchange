@@ -10,7 +10,7 @@ public class TestExchange {
     @Test
     public void testNewOrder() {
         var exchange = new Exchange();
-        exchange.newOrder("DAXEX GY", 100, 100.0, Buy);
+        exchange.newOrder(1, "DAXEX GY", 100.0, 100, Buy);
         assertEquals("DAXEX GY\n" +
                 "100.00 100", exchange.toString());
     }
@@ -18,8 +18,8 @@ public class TestExchange {
     @Test
     public void testSumOrders() {
         var exchange = new Exchange();
-        exchange.newOrder("DAXEX GY", 100, 100.0, Buy);
-        exchange.newOrder("DAXEX GY", 200, 100.0, Buy);
+        exchange.newOrder(1, "DAXEX GY", 100.0, 100, Buy);
+        exchange.newOrder(2, "DAXEX GY", 100.0, 200, Buy);
         assertEquals("DAXEX GY\n" +
                 "100.00 300", exchange.toString());
     }
@@ -27,8 +27,8 @@ public class TestExchange {
     @Test
     public void testOrderBid() {
         var exchange = new Exchange();
-        exchange.newOrder("DAXEX GY", 100, 9319.60, Buy);
-        exchange.newOrder("DAXEX GY", 100, 9136.50, Buy);
+        exchange.newOrder(1, "DAXEX GY", 9319.60, 100, Buy);
+        exchange.newOrder(2, "DAXEX GY", 9136.50, 100, Buy);
         assertEquals("DAXEX GY\n" +
                 "9319.60 100\n" +
                 "9136.50 100", exchange.toString());
@@ -37,8 +37,8 @@ public class TestExchange {
     @Test
     public void testOrderAsk() {
         var exchange = new Exchange();
-        exchange.newOrder("DAXEX GY", 100, 9152.80, Sell);
-        exchange.newOrder("DAXEX GY", 100, 9156.40, Sell);
+        exchange.newOrder(1, "DAXEX GY", 9152.80, 100, Sell);
+        exchange.newOrder(2, "DAXEX GY", 9156.40, 100, Sell);
         assertEquals("DAXEX GY\n" +
                 "9152.80 100\n" +
                 "9156.40 100", exchange.toString());
@@ -47,10 +47,10 @@ public class TestExchange {
     @Test
     public void testOrder() {
         var exchange = new Exchange();
-        exchange.newOrder("DAXEX GY", 100, 220.0, Sell);
-        exchange.newOrder("DAXEX GY", 100, 210.0, Sell);
-        exchange.newOrder("DAXEX GY", 100, 190.0, Buy);
-        exchange.newOrder("DAXEX GY", 100, 180.0, Buy);
+        exchange.newOrder(1, "DAXEX GY", 220.0, 100, Sell);
+        exchange.newOrder(2, "DAXEX GY", 210.0, 100, Sell);
+        exchange.newOrder(3, "DAXEX GY", 190.0, 100, Buy);
+        exchange.newOrder(4, "DAXEX GY", 180.0, 100, Buy);
         assertEquals("DAXEX GY\n" +
                 "190.00 100\n" +
                 "180.00 100\n" +

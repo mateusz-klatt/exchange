@@ -14,7 +14,7 @@ public class TestBook {
     @Test
     public void testAddOrder() {
         var book = new Book("DAXEX GY");
-        book.addOrder(100, 100.0, Side.Buy);
+        book.addOrder(1, 100.0, 100, Side.Buy);
         assertEquals("DAXEX GY\n" +
                 "100.00 100", book.toString());
     }
@@ -22,8 +22,8 @@ public class TestBook {
     @Test
     public void testAddOrdersCross() {
         var book = new Book("DAXEX GY");
-        book.addOrder(100, 100.0, Side.Buy);
-        book.addOrder(10, 99, Side.Sell);
+        book.addOrder(1, 100.0, 100, Side.Buy);
+        book.addOrder(2, 99.0, 10, Side.Sell);
         assertEquals("DAXEX GY\n" +
                 "100.00 90", book.toString());
     }
@@ -31,8 +31,8 @@ public class TestBook {
     @Test
     public void testAddOrdersCrossOver() {
         var book = new Book("DAXEX GY");
-        book.addOrder(10, 100.0, Side.Buy);
-        book.addOrder(100, 99.0, Side.Sell);
+        book.addOrder(1, 100.0, 10, Side.Buy);
+        book.addOrder(2, 99.0, 100, Side.Sell);
         assertEquals("DAXEX GY\n" +
                 "99.00 90", book.toString());
     }

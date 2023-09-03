@@ -25,8 +25,8 @@ public class Book {
                 .collect(Collectors.joining("\n"));
     }
 
-    public void addOrder(int amount, double price, Side side) {
-        var order = new Order(amount, price, side);
+    public void addOrder(int id, double price, int quantity, Side side) {
+        var order = new Order(id, price, quantity, side);
         this.marketTake(order);
         if (order.getRemaining() > 0) {
             this.marketMake(order);

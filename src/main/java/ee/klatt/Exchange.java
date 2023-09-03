@@ -7,8 +7,8 @@ public class Exchange {
         this.books = new Books();
     }
 
-    public void newOrder(String instrument, int amount, double price, Side side) {
-        books.getInstrument(instrument).addOrder(amount, price, side);
+    public void newOrder(int id, String instrument, double price, int quantity, Side side) {
+        books.getInstrument(instrument).addOrder(id, price, quantity, side);
     }
 
     @Override

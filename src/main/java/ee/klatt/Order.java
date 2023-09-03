@@ -1,18 +1,24 @@
 package ee.klatt;
 
 public class Order {
-    private int remaining;
-    private int executed;
-    private int canceled;
+    private final int id;
     private final double price;
     private final Side side;
+    private int canceled;
+    private int remaining;
+    private int executed;
 
-    public Order(int amount, double price, Side side) {
-        this.remaining = amount;
+    public Order(int id, double price, int quantity, Side side) {
+        this.id = id;
+        this.price = price;
+        this.remaining = quantity;
         this.executed = 0;
         this.canceled = 0;
-        this.price = price;
         this.side = side;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getCanceled() {
