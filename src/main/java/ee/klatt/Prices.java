@@ -1,9 +1,6 @@
 package ee.klatt;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static ee.klatt.Side.Sell;
@@ -27,7 +24,23 @@ public class Prices {
                 .collect(Collectors.joining("\n"));
     }
 
-    public void addOrder(int amount, double price) {
-        prices.computeIfAbsent(price, Price::new).addOrder(amount);
+    public void addOrder(Order order) {
+        prices.computeIfAbsent(order.getPrice(), Price::new).addOrder(order);
+    }
+
+    public void executeOrder(Order order) {
+        var orders = prices.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(side == Sell ? Comparator.naturalOrder() : Collections.reverseOrder()))
+                .map(Map.Entry::getValue)
+                .map(Price::getOrders)
+                .flatMap(List::stream)
+                .filter(side == Sell ? o -> o.getPrice() <= order.getPrice() : o -> o.getPrice() >= order.getPrice())
+                .takeWhile(o -> (o.execute(order).getRemaining() == 0))
+                .collect(Collectors.toList());
+        orders.forEach(o -> {
+            if (prices.get(o.getPrice()).removeOrder(o).getSize() == 0) {
+                prices.remove(o.getPrice());
+            }
+        });
     }
 }

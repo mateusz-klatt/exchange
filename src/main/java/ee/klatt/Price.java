@@ -17,11 +17,21 @@ public class Price {
         return String.format("%.2f %d", this.price, this.getSize());
     }
 
-    public void addOrder(int amount) {
-        this.orders.add(new Order(amount));
+    public Price addOrder(Order order) {
+        this.orders.add(order);
+        return this;
     }
 
     public int getSize() {
-        return orders.stream().mapToInt(Order::getAmount).sum();
+        return orders.stream().mapToInt(Order::getRemaining).sum();
+    }
+
+    public List<Order> getOrders() {
+        return new ArrayList<>(orders);
+    }
+
+    public Price removeOrder(Order order) {
+        orders.remove(order);
+        return this;
     }
 }

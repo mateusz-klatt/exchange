@@ -26,10 +26,26 @@ public class Book {
     }
 
     public void addOrder(int amount, double price, Side side) {
-        if (side == Buy) {
-            this.bid.addOrder(amount, price);
+        var order = new Order(amount, price, side);
+        this.marketTake(order);
+        if (order.getRemaining() > 0) {
+            this.marketMake(order);
+        }
+    }
+
+    public void marketMake(Order order) {
+        if (order.getSide() == Buy) {
+            this.bid.addOrder(order);
         } else {
-            this.ask.addOrder(amount, price);
+            this.ask.addOrder(order);
+        }
+    }
+
+    public void marketTake(Order order) {
+        if (order.getSide() == Buy) {
+            this.ask.executeOrder(order);
+        } else {
+            this.bid.executeOrder(order);
         }
     }
 }
