@@ -2,6 +2,7 @@ package ee.klatt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Price {
     private final double price;
@@ -14,7 +15,11 @@ public class Price {
 
     @Override
     public String toString() {
-        return String.format("%.2f %d", this.price, this.getSize());
+        return String.format("%.2f %d %s", this.price, this.getSize(),
+                this.orders.stream()
+                        .map(Order::getId)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(",")));
     }
 
     public Price addOrder(Order order) {

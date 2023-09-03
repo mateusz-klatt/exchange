@@ -20,7 +20,6 @@ public class Prices {
                 .sorted(Map.Entry.comparingByKey(side == Sell ? Comparator.naturalOrder() : Collections.reverseOrder()))
                 .map(Map.Entry::getValue)
                 .map(Object::toString)
-                .filter(v -> !v.isEmpty())
                 .collect(Collectors.joining("\n"));
     }
 
