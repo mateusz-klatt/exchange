@@ -52,9 +52,9 @@ public class TestExchange {
         exchange.newOrder("DAXEX GY", 100, 190.0, Buy);
         exchange.newOrder("DAXEX GY", 100, 180.0, Buy);
         assertEquals("DAXEX GY\n" +
-                "210.00 100\n" +
-                "220.00 100\n" +
                 "190.00 100\n" +
-                "180.00 100", exchange.toString());
+                "180.00 100\n" +
+                "210.00 100\n" +
+                "220.00 100", exchange.toString());
     }
 }
