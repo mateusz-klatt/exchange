@@ -16,6 +16,23 @@ public class TestExchange {
     }
 
     @Test
+    public void testCancelOrder() {
+        var exchange = new Exchange();
+        exchange.newOrder(1, "DAXEX GY", 132.8200, 100, Buy);
+        exchange.newOrder(2, "ISF LN", 735.9000, 100, Buy);
+        exchange.newOrder(3, "DAXEX GY", 132.8200, 200, Buy);
+        exchange.newOrder(4, "ISF LN", 735.9000, 200, Buy);
+        exchange.newOrder(5, "DAXEX GY", 132.8200, 300, Buy);
+
+        exchange.newOrder(6, "ISF LN", 735.9000, 300, Buy);
+        exchange.cancelOrder(3);
+        assertEquals("DAXEX GY\n" +
+                "132.82 400 1,5\n" +
+                "ISF LN\n" +
+                "735.90 600 2,4,6", exchange.toString());
+    }
+
+    @Test
     public void testSumOrders() {
         var exchange = new Exchange();
         exchange.newOrder(1, "DAXEX GY", 100.0, 100, Buy);

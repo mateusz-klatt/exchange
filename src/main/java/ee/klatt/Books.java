@@ -1,6 +1,8 @@
 package ee.klatt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,5 +25,9 @@ public class Books {
 
     public Book getInstrument(String instrument) {
         return books.computeIfAbsent(instrument, Book::new);
+    }
+
+    public List<Book> getInstruments() {
+        return new ArrayList<>(books.values());
     }
 }

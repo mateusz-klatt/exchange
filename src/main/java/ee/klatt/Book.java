@@ -48,4 +48,8 @@ public class Book {
             this.bid.executeOrder(order);
         }
     }
+
+    public boolean removeOrder(int orderId) {
+        return Stream.of(this.bid, this.ask).anyMatch(prices -> prices.removeOrder(orderId));
+    }
 }
