@@ -49,7 +49,7 @@ public class Book {
         }
     }
 
-    public boolean removeOrder(int orderId) {
-        return Stream.of(this.bid, this.ask).anyMatch(prices -> prices.removeOrder(orderId));
+    public boolean cancelOrder(int id, int quantity) {
+        return Stream.of(this.bid, this.ask).anyMatch(prices -> prices.cancelOrder(id, quantity));
     }
 }

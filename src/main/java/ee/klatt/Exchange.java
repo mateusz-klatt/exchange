@@ -16,7 +16,7 @@ public class Exchange {
         return books.toString();
     }
 
-    public void cancelOrder(int orderId) {
-        books.getInstruments().stream().anyMatch(book -> book.removeOrder(orderId));
+    public void cancelOrder(int id, int quantity) {
+        books.getInstruments().stream().anyMatch(book -> book.cancelOrder(id, quantity));
     }
 }

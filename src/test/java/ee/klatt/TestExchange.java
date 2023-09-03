@@ -25,11 +25,12 @@ public class TestExchange {
         exchange.newOrder(5, "DAXEX GY", 132.8200, 300, Buy);
 
         exchange.newOrder(6, "ISF LN", 735.9000, 300, Buy);
-        exchange.cancelOrder(3);
+        exchange.cancelOrder(3, 200);
+        exchange.cancelOrder(4, 199);
         assertEquals("DAXEX GY\n" +
                 "132.82 400 1,5\n" +
                 "ISF LN\n" +
-                "735.90 600 2,4,6", exchange.toString());
+                "735.90 401 2,4,6", exchange.toString());
     }
 
     @Test

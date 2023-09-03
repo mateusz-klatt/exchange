@@ -43,12 +43,12 @@ public class Prices {
     }
 
 
-    public boolean removeOrder(int orderId) {
+    public boolean cancelOrder(int id, int quantity) {
         return prices.values().stream().anyMatch(price -> {
-            var found = price.getOrders().stream().filter(order -> order.getId() == orderId).findFirst();
+            var found = price.getOrders().stream().filter(order -> order.getId() == id).findFirst();
             if (found.isEmpty()) return false;
             var o = found.get();
-            if (prices.get(o.getPrice()).removeOrder(o).getSize() == 0) {
+            if (o.cancel(quantity).getRemaining() == 0 && prices.get(o.getPrice()).removeOrder(o).getSize() == 0) {
                 prices.remove(o.getPrice());
             }
             return true;

@@ -58,4 +58,11 @@ public class Order {
         order.remaining -= executed;
         return this;
     }
+
+    public Order cancel(int quantity) {
+        var canceled = Math.min(this.remaining, quantity);
+        this.remaining -= canceled;
+        this.canceled += canceled;
+        return this;
+    }
 }
