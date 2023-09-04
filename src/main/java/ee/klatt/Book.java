@@ -33,7 +33,7 @@ public class Book {
         }
     }
 
-    public void marketMake(Order order) {
+    private void marketMake(Order order) {
         if (order.getSide() == Buy) {
             this.bid.addOrder(order);
         } else {
@@ -41,7 +41,7 @@ public class Book {
         }
     }
 
-    public void marketTake(Order order) {
+    private void marketTake(Order order) {
         if (order.getSide() == Buy) {
             this.ask.executeOrder(order);
         } else {

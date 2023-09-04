@@ -1,5 +1,7 @@
 package ee.klatt;
 
+import static ee.klatt.Side.Sell;
+
 public class Order {
     private final int id;
     private final double price;
@@ -39,6 +41,10 @@ public class Order {
 
     public Side getSide() {
         return side;
+    }
+
+    public boolean crossed(Order order) {
+        return this.side != order.side && (side == Sell ? this.getPrice() <= order.getPrice() : this.getPrice() >= order.getPrice());
     }
 
     public Order execute(Order order) {

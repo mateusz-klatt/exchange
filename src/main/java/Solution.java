@@ -39,9 +39,9 @@ class OrderBook {
 
     public List<PriceLevelResult> top(int n, String stockTicker, int side) {
         var prices = exchange.getBook(stockTicker).getSide(Side.fromValue(side));
-        return prices.getPrices().stream()
+        return prices.getPrices()
                 .limit(n)
-                .map(p -> new PriceLevelResult((float) p.getPrice(), p.getSize(), p.getOrders().stream().map(Order::getId).collect(Collectors.toList()))).collect(Collectors.toList());
+                .map(p -> new PriceLevelResult((float) p.getPrice(), p.getRemaining(), p.getOrders().map(Order::getId).collect(Collectors.toList()))).collect(Collectors.toList());
     }
 }
 // Translate between stdin/out and function calls

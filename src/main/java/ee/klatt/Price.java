@@ -3,6 +3,7 @@ package ee.klatt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Price {
     private final double price;
@@ -15,7 +16,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return String.format("%.2f %d %s", this.price, this.getSize(),
+        return String.format("%.2f %d %s", this.price, this.getRemaining(),
                 this.orders.stream()
                         .map(Order::getId)
                         .map(String::valueOf)
@@ -32,11 +33,15 @@ public class Price {
     }
 
     public int getSize() {
+        return orders.size();
+    }
+
+    public int getRemaining() {
         return orders.stream().mapToInt(Order::getRemaining).sum();
     }
 
-    public List<Order> getOrders() {
-        return new ArrayList<>(orders);
+    public Stream<Order> getOrders() {
+        return orders.stream();
     }
 
     public Price removeOrder(Order order) {
